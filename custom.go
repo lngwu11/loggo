@@ -19,11 +19,16 @@ func Custom(server, uid string) {
 	writers := []io.Writer{infoWriter, os.Stdout}
 	logger.SetOutput(io.MultiWriter(writers...))
 
-	logger.SetReportCaller(true)
 	logger.SetFormatter(&TextFormatter{
 		DisableQuote:    true,
 		TimestampFormat: "2006-01-02 15:04:05.000",
 	})
+}
+
+func ShowCaller(isShow bool) {
+	if logger != nil {
+		logger.SetReportCaller(isShow)
+	}
 }
 
 func getWriter(filename string) io.Writer {
